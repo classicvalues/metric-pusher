@@ -1,0 +1,23 @@
+{
+    "name": "calltouch/metric-pusher",
+    "type": "library",
+    "description": "The library provides unified way to push metrics to different storages",
+    "autoload": {
+        "psr-4": {
+            "Calltouch\\MetricPusher\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    },
+    "authors": [
+        {
+            "name": "Andrey Budik",
+            "email": "abudik@calltouch.net"
+        }
+    ],
+    "suggest": {
+        "influxdata/influxdb-php": "Allow to push metrics to influxDb"
+    }
+}
