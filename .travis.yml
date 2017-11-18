@@ -4,5 +4,6 @@ php:
   - '7.1'
 
 before_script:
-  - curl --version
-  - composer install --no-interaction --prefer-source --dev
+  - composer install --no-dev --no-interaction --prefer-source --no-suggest
+  - composer require --no-suggest influxdb/influxdb-php ^1.14
+
