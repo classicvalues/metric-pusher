@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/calltouch/metric-pusher.svg?branch=master)](https://travis-ci.org/calltouch/metric-pusher)
 
-The library supports pushing to the following storages:
+The library supports pushing to the following interfaces:
 - InfluxDb via [HTTP API](https://docs.influxdata.com/influxdb/v1.3/guides/writing_data/)
 - InfluxDb via [UDP plugin](https://docs.influxdata.com/influxdb/v1.3/tools/udp/)
 
@@ -17,14 +17,19 @@ composer require calltouch/metric-pusher
 ## Usage
 ### InfluxDb via HTTP API
 ```php
+
 use Calltouch\MetricPusher\MetricData\{Metric, Tag, TagCollection, Data, DataCollection};
 use Calltouch\MetricPusher\Pusher\InfluxDbHttpApiPusher;
 use Calltouch\MetricPusher\Collector;
 
 $url = 'http://127.0.0.1:8086';
 $db = 'database1';
+$params = [
+    'user' => 'user1',
+    'password' => 'password',
+];
 
-$pusher = new InfluxDbHttpApiPusher($url, $db);
+$pusher = new InfluxDbHttpApiPusher($url, $db, $params);
 
 $collector = new Collector($pusher);
 
@@ -34,9 +39,9 @@ $tags->add(new Tag('host', gethostname()));
 $data = new DataCollection;
 $data->add(new Data('value', rand(0, 100)));
 
-$metric = new Metric('random_numbres', $data, $tags);
+$metric = new Metric('metric_name1', $data, $tags);
 
-$collector->sendMetric($metric);
+$collector->sendMetrics([$metric]);
 ```
 ### InfluxDb via UDP plugin
 ```php
@@ -57,7 +62,7 @@ $tags->add(new Tag('host', gethostname()));
 $data = new DataCollection;
 $data->add(new Data('value', rand(0, 100)));
 
-$metric = new Metric('random_numbres', $data, $tags);
+$metric = new Metric('metric_name2', $data, $tags);
 
-$collector->sendMetric($metric);
+$collector->sendMetrics([$metric]);
 ```

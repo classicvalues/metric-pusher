@@ -72,10 +72,14 @@ class InfluxDbHttpApiPusher implements PusherInterface
     {
         $this->checkDependency();
 
+        $url =  $this->url . '/write?db=' . $this->database;
+        $url .= isset($this->params['user']) ? '&u=' . $this->params['user']: '';
+        $url .= isset($this->params['password']) ? '&p=' . $this->params['password']: '';
+
         $this->curlChannel = curl_init();
         curl_setopt($this->curlChannel, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curlChannel, CURLOPT_POST, true);
-        curl_setopt($this->curlChannel, CURLOPT_URL, $this->url . '/write?db=' . $this->database);
+        curl_setopt($this->curlChannel, CURLOPT_URL, $url);
     }
 
     /**
