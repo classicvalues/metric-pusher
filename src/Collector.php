@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Calltouch\MetricPusher;
 
@@ -25,6 +26,8 @@ class Collector implements ICollector
      */
     public function sendMetric(MetricInterface $metric): void
     {
+        $this->pusher->init();
         $this->pusher->sendMetrics([$metric]);
+        $this->pusher->init();
     }
 }

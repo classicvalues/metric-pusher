@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Calltouch\MetricPusher\MetricData;
 
@@ -18,7 +19,7 @@ class Tag
      * @param string $name
      * @param string $value
      */
-    public function __construct(string $name, string $value)
+    public function __construct(string $name, $value)
     {
         $this->name = $name;
         $this->value = $value;
@@ -35,7 +36,7 @@ class Tag
     /**
      * @return string
      */
-    public function getValue(): string
+    public function getValue()
     {
         return $this->value;
     }
