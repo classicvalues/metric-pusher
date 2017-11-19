@@ -44,7 +44,7 @@ class CollectorTest extends TestCase
         $expectedMetric = new Metric($metricName, $data, $tags);
         $this->pusherMock->expects(self::once())->method('init');
         $this->pusherMock->expects(self::once())->method('sendMetrics')->with([$expectedMetric]);
-        $this->pusherMock->expects(self::once())->method('deinit');
+        $this->pusherMock->expects(self::once())->method('uninit');
 
         $collector->sendMetrics([$expectedMetric]);
     }
