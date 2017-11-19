@@ -21,11 +21,6 @@ class InfluxDbUdpPusher implements PusherInterface
     private $port;
 
     /**
-     * @var array
-     */
-    private $params;
-
-    /**
      * @var MetricConverter
      */
     private $metricConverter;
@@ -38,13 +33,11 @@ class InfluxDbUdpPusher implements PusherInterface
     /**
      * @param string $host
      * @param int    $port
-     * @param array  $params
      */
-    public function __construct(string $host, int $port, array $params = [])
+    public function __construct(string $host, int $port)
     {
         $this->host = $host;
         $this->port = $port;
-        $this->params = $params;
 
         $this->metricConverter = new MetricConverter();
     }

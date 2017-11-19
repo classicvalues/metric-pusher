@@ -8,11 +8,11 @@ use Calltouch\MetricPusher\Exception\PusherCommunicationException;
 use Calltouch\MetricPusher\Pusher\InfluxDb\MetricConverter;
 
 /**
- * Pusher for InfluxDB API
+ * Pusher for InfluxDB HTTP API
  *
  * @link https://docs.influxdata.com/influxdb/v1.3/guides/writing_data/
  */
-class InfluxDbApiPusher implements PusherInterface
+class InfluxDbHttpApiPusher implements PusherInterface
 {
     /**
      * @var string
@@ -59,7 +59,7 @@ class InfluxDbApiPusher implements PusherInterface
     private function checkDependency(): void
     {
         if(!extension_loaded('curl')) {
-            throw new PusherMissedDependencyException(sprintf('Curl extension required for %s', InfluxDbApiPusher::class));
+            throw new PusherMissedDependencyException(sprintf('Curl extension required for %s', InfluxDbHttpApiPusher::class));
         }
     }
 

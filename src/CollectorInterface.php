@@ -5,10 +5,10 @@ namespace Calltouch\MetricPusher;
 
 use Calltouch\MetricPusher\MetricData\MetricInterface;
 
-interface ICollector
+interface CollectorInterface
 {
     /**
-     * @param MetricInterface $metric
+     * @param MetricInterface[] $metrics
      */
-    public function sendMetric(MetricInterface $metric): void;
+    public function sendMetrics(array $metrics): void;
 }

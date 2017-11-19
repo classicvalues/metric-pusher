@@ -6,7 +6,7 @@ namespace Calltouch\MetricPusher;
 use Calltouch\MetricPusher\MetricData\MetricInterface;
 use Calltouch\MetricPusher\Pusher\PusherInterface;
 
-class Collector implements ICollector
+class Collector implements CollectorInterface
 {
     /**
      * @var PusherInterface
@@ -24,10 +24,10 @@ class Collector implements ICollector
     /**
      * {@inheritdoc}
      */
-    public function sendMetric(MetricInterface $metric): void
+    public function sendMetrics(array $metrics): void
     {
         $this->pusher->init();
-        $this->pusher->sendMetrics([$metric]);
-        $this->pusher->init();
+        $this->pusher->sendMetrics($metrics);
+        $this->pusher->uninit();
     }
 }

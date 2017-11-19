@@ -27,7 +27,7 @@ class CollectorTest extends TestCase
         $this->pusherMock = self::getMockBuilder(PusherInterface::class)->getMock();
     }
 
-    public function testS()
+    public function testSendMetric()
     {
         $collector = new Collector($this->pusherMock);
 
@@ -42,8 +42,10 @@ class CollectorTest extends TestCase
         $tags->add(new Tag('tagName2', 'tagValue2'));
 
         $expectedMetric = new Metric($metricName, $data, $tags);
+        $this->pusherMock->expects(self::once())->method('init');
         $this->pusherMock->expects(self::once())->method('sendMetrics')->with([$expectedMetric]);
+        $this->pusherMock->expects(self::once())->method('deinit');
 
-        $collector->sendMetric($expectedMetric);
+        $collector->sendMetrics([$expectedMetric]);
     }
 }

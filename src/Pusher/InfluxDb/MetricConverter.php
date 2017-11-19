@@ -40,7 +40,10 @@ class MetricConverter
 
             $tags[] = sprintf('%s=%s', $tagKey, $tagValue);
         }
-        $pointData .= ',' . implode(',', $tags);
+
+        if ($tags) {
+            $pointData .= ',' . implode(',', $tags);
+        }
 
         $fields = [];
         foreach ($metric->getData()->all() as $data) {

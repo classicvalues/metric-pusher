@@ -18,13 +18,13 @@ composer require calltouch/metric-pusher
 ### InfluxDb via HTTP API
 ```php
 use Calltouch\MetricPusher\MetricData\{Metric, Tag, TagCollection, Data, DataCollection};
-use Calltouch\MetricPusher\Pusher\InfluxDbApiPusher;
+use Calltouch\MetricPusher\Pusher\InfluxDbHttpApiPusher;
 use Calltouch\MetricPusher\Collector;
 
 $url = 'http://127.0.0.1:8086';
 $db = 'database1';
 
-$pusher = new InfluxDbApiPusher($url, $db);
+$pusher = new InfluxDbHttpApiPusher($url, $db);
 
 $collector = new Collector($pusher);
 
