@@ -6,6 +6,7 @@ namespace Calltouch\MetricPusher\Pusher\InfluxDb;
 use Calltouch\MetricPusher\MetricData\Metric;
 use Calltouch\MetricPusher\MetricData\MetricInterface;
 use Calltouch\MetricPusher\MetricData\TimeMetricInterface;
+use InvalidArgumentException;
 
 class MetricConverter
 {
@@ -45,6 +46,9 @@ class MetricConverter
             $pointData .= ',' . implode(',', $tags);
         }
 
+        if (!$metric->getData()->all()) {
+            throw new InvalidArgumentException("Must be at least one metric");
+        }
         $fields = [];
         foreach ($metric->getData()->all() as $data) {
             $fieldKey   = $this->lineProtocolEncoder->escapeName($data->getName());

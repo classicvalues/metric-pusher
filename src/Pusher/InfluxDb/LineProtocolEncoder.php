@@ -81,14 +81,14 @@ class LineProtocolEncoder
      */
     private function translateFloatValue(float $value): string
     {
-        $result = number_format($value, 16, '.', '');
+        $result = number_format($value, 10, '.', '');
         return $result;
     }
 
     /**
      * Translate field value
      *
-     * @param $value
+     * @param bool|integer|float|string $value
      *
      * @return string
      *
@@ -111,7 +111,7 @@ class LineProtocolEncoder
                 $result = $this->translateStringValue($value);
                 break;
             default:
-                throw new InvalidArgumentException ("Unsupported field value type: %s", $valueType);
+                throw new InvalidArgumentException(sprintf("Unsupported field value type: %s", $valueType));
         }
 
         return $result;
