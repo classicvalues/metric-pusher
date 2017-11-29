@@ -24,9 +24,12 @@ use Calltouch\MetricPusher\Collector;
 
 $url = 'http://127.0.0.1:8086';
 $db = 'database1';
+
+// optional params
 $params = [
-    'user' => 'user1',
-    'password' => 'password',
+    'user' => 'user1', // influx user
+    'password' => 'password', // influx password
+    'timeout' => 100, // request max timeout in milliseconds
 ];
 
 $pusher = new InfluxDbHttpApiPusher($url, $db, $params);

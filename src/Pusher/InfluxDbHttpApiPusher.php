@@ -77,9 +77,16 @@ class InfluxDbHttpApiPusher implements PusherInterface
         $url .= isset($this->params['password']) ? '&p=' . $this->params['password']: '';
 
         $this->curlChannel = curl_init();
+
         curl_setopt($this->curlChannel, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curlChannel, CURLOPT_POST, true);
         curl_setopt($this->curlChannel, CURLOPT_URL, $url);
+
+        if (isset($this->params['timeout'])) {
+            $timeout = (int) $this->params['timeout'];
+            curl_setopt($this->curlChannel, CURLOPT_TIMEOUT_MS, $timeout);
+            curl_setopt($this->curlChannel, CURLOPT_CONNECTTIMEOUT_MS, $timeout);
+        }
     }
 
     /**
@@ -96,11 +103,11 @@ class InfluxDbHttpApiPusher implements PusherInterface
 
         $error = curl_error($this->curlChannel);
         if ($error) {
-            throw new PusherCommunicationException(sprintf('Curl error: %s', $error));
+            throw new PusherCommunicationException(sprintf('Url: %s, curl error: %s', $this->url, $error));
         }
 
         if ($info['http_code'] !== 204) {
-            throw new PusherCommunicationException(sprintf('Response code: %s, body: %s', $info['http_code'], $body));
+            throw new PusherCommunicationException(sprintf('Url: %s, http response code: %s, body: %s', $this->url, $info['http_code'], $body));
         }
     }
 
